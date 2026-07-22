@@ -1,0 +1,4 @@
+interface:
+  display_name: "Summarize"
+  short_description: "Compress learning material into reusable notes."
+  default_prompt: "Summarize this chapter or source into concise, teach-back notes."
