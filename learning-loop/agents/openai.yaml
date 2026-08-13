@@ -1,0 +1,8 @@
+interface:
+  display_name: "Learning Loop"
+  short_description: "10-step learning loop: research, test, output, compress"
+  brand_color: "#4F46E5"
+  default_prompt: "Use $learning-loop to learn a topic in quick or standard mode, advancing stage by stage."
+
+policy:
+  allow_implicit_invocation: true
