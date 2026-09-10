@@ -1,6 +1,6 @@
 # 多项目协作详细规则
 
-> 本文件是 `SKILL.md` 中"多项目协作"段落的完整展开。默认不常驻上下文，仅在触发 `MULTI / 多项目` 时按需加载。
+> 本文件是 `SKILL.md` 中「多项目协作」段落的完整展开。默认不常驻上下文，仅在触发 `MULTI / 多项目` 时按需加载。
 
 ## 自动发现（Auto-Discovery）
 
@@ -12,17 +12,11 @@
 - 用户也可显式提供 `projects=[...]` 跳过自动发现
 - 智能降级：仅 1 个子项目 → 自动降级为单项目模式；0 个子项目 → workdir 本身作为单项目
 
-## 自动 Codemap
-
-- 发现项目后，自动为每个子项目检查/生成 `create_codemap(project)`
-- 产物路径：`mydocs/codemap/YYYY-MM-DD_hh-mm_<project_id>项目总图.md`
-
 ## 作用域隔离规则（必须）
 
 - 每轮先声明 `active_project` 与 `active_workdir`
 - 默认 `change_scope=local`，只允许修改 `active_project` 下的文件
 - 仅在显式 `change_scope=cross`（或触发词 `CROSS / 跨项目`）时允许跨项目改动
-- 始终 `codemap-first`：切换到任何项目前，必须先加载该项目的 codemap/context
 - 跨项目执行后，在 spec `§6.1 Touched Projects` 记录改动项目、文件、原因
 
 ## 跨项目依赖与契约
@@ -42,7 +36,7 @@
 
 - `MULTI / 多项目` → 进入多项目模式，运行自动发现
 - `CROSS / 跨项目` → 当前轮 `change_scope=cross`
-- `SWITCH <project_id> / 切换 <project_id>` → 切换 `active_project`，自动加载 codemap
+- `SWITCH <project_id> / 切换 <project_id>` → 切换 `active_project`
 - `REGISTRY / 项目列表` → 显示当前 Project Registry
 - `SCOPE LOCAL / 回到本地` → 重置为 `change_scope=local`
 

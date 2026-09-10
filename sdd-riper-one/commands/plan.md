@@ -21,7 +21,8 @@ skill: sdd-riper-one
    - `4.2 Signatures`: 函数/类签名
    - `4.3 Implementation Checklist`: 原子化 checklist
 6. 建议执行 `review_spec`（建议性预审）
-7. 更新状态块 `Phase: plan`、`Approval: Pending`
+7. 更新状态块 `Phase: plan`、`Approval: None`
+8. 若是修订已批准的 Plan：追加 `§8 Change Log`，并重置 `Approval: None`（需重新批准）
 
 **Output**
 
@@ -30,5 +31,5 @@ skill: sdd-riper-one
 **Guardrails**
 
 - Plan 必须可执行：文件路径 + 签名 + 原子 checklist
-- 未收到用户明确肯定 + 继续意图，禁止进入 Execute（不要求精确字符串 "Plan Approved"）
+- 未写入状态块 `Approval: Plan Approved` 前，禁止进入 Execute；单独一句「继续」不构成批准，模糊语气不得推断
 - `/sdd:reviewspec` 的 `NO-GO` 为建议项，不是强制门禁

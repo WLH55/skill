@@ -13,7 +13,7 @@
 
 预期行为：
 
-- 作为 RIPER 启动命令，收口 Pre-Research 输入并进入 research 第一步。
+- 作为 RIPER 启动命令，产出首版 spec 并进入 research 第一步。
 - 生成首版 spec，并列出待补充上下文与风险。
 - 产物文件示例：`mydocs/specs/YYYY-MM-DD_hh-mm_资源访问审批与时效控制.md`。
 
@@ -31,66 +31,7 @@
 - 模型主动补充读取项目代码与历史资料。
 - 主动提问关键澄清问题（可多问，但不问废话）。
 
-## 2) create_codemap（随时触发）
-
-用户输入：
-
-```text
-create_codemap: mode=feature, scope=访问审批链路, boundary=share 模块, no_code_change=true
-```
-
-预期行为：
-
-- 输出入口、核心类、数据流、依赖、风险。
-- 作为后续 SDD 的代码索引，减少重复扫描与无效上下文。
-- 写入 `mydocs/codemap/` 下的功能级地图文件。
-- 产物文件示例：`mydocs/codemap/YYYY-MM-DD_hh-mm_访问审批链路功能.md`。
-
-## 2.1) create_codemap（项目级总图）
-
-用户输入：
-
-```text
-create_codemap: mode=project, scope=sample-enterprise, goal=输出项目级总图与核心流程
-```
-
-预期行为：
-
-- 输出项目分层、模块边界、跨模块依赖、外部系统依赖、风险热区。
-- 建议包含 Mermaid 架构图 + 主流程图；受限时可用结构化文字图替代。
-- 产物文件示例：`mydocs/codemap/YYYY-MM-DD_hh-mm_sample-enterprise项目总图.md`。
-
-## 3) build_context_bundle（目录输入）
-
-用户输入：
-
-```text
-build_context_bundle: ./mydocs/context/raw/external-share
-```
-
-预期行为：
-
-- 阅读目录内多类型文件并汇总（文本/文档/图片）。
-- 对图片执行 OCR/视觉提炼；信息不足时允许先索引后迭代补全。
-- 产出精炼的需求背景包（需求事实/业务规则/验收口径/约束/冲突点/开放问题）。
-- 小需求或信息不完整时可先产出 Lite 版，再迭代补全。
-- 产物文件示例：`mydocs/context/YYYY-MM-DD_hh-mm_资源访问审批与时效控制_context_bundle.md`。
-
-## 4) 无 codemap/context 也可继续
-
-用户输入：
-
-```text
-先不要做 codemap 和 context bundle，直接 sdd_bootstrap 启动；
-缺失项请在 spec 里标注并给我补齐建议。
-```
-
-预期行为：
-
-- 不阻塞流程，先产首版 spec。
-- 明确缺口与下一步补齐动作。
-
-## 5) Innovate / Plan / Execute / Review 串行
+## 2) Innovate / Plan / Execute / Review 串行
 
 用户输入：
 
@@ -109,7 +50,7 @@ build_context_bundle: ./mydocs/context/raw/external-share
 
 - 可跳过 Innovate 直接进 Plan，但要在 spec 中写明跳过原因。
 
-## 6) FAST 小改
+## 3) FAST 小改
 
 用户输入：
 
@@ -122,7 +63,7 @@ build_context_bundle: ./mydocs/context/raw/external-share
 - 直接执行小改。
 - 改后补齐 spec 记录。
 
-## 7) bootstrap 后完整对话（辅导模板）
+## 4) bootstrap 后完整对话（辅导模板）
 
 用户输入（第一轮）：
 
@@ -142,7 +83,7 @@ build_context_bundle: ./mydocs/context/raw/external-share
 用户输入（第二轮）：
 
 ```text
-继续 research，先补齐 create_codemap，范围=审批授权链路。
+继续 research，把审批授权链路的现状代码读一遍。
 ```
 
 用户输入（第三轮）：
@@ -171,9 +112,9 @@ Plan Approved，开始 execute。
 
 ---
 
-## 8) 多项目协作：自动发现 + 一键启动
+## 5) 多项目协作：自动发现 + 一键启动
 
-### 8.1) 最简启动（自动发现，零配置）
+### 5.1) 最简启动（自动发现，零配置）
 
 用户输入：
 
@@ -199,11 +140,10 @@ Plan Approved，开始 execute。
   确认是否正确？如需调整请告知。
   ```
 
-- 用户确认后，自动为每个子项目生成 codemap。
-- 产出首版多项目 Spec（含 `§0.1 Project Registry`、`§0.2 Multi-Project Config`）。
+- 用户确认后，产出首版多项目 Spec（含 `§0.1 Project Registry`、`§0.2 Multi-Project Config`）。
 - 默认 `active_project=web-console`，`change_scope=local`。
 
-### 8.2) 显式指定项目列表（跳过自动发现）
+### 5.2) 显式指定项目列表（跳过自动发现）
 
 用户输入：
 
@@ -221,7 +161,7 @@ Plan Approved，开始 execute。
 - 跳过自动发现，直接使用用户提供的项目列表。
 - 其余流程与 8.1 一致。
 
-### 8.3) 切换活跃项目
+### 5.3) 切换活跃项目
 
 用户输入：
 
@@ -232,10 +172,9 @@ Plan Approved，开始 execute。
 预期行为：
 
 - Agent 更新 `active_project=api-service`，`active_workdir=./api-service`。
-- 自动加载 api-service 的 codemap。
 - 后续操作仅限 api-service 目录。
 
-### 8.4) 跨项目改动
+### 5.4) 跨项目改动
 
 用户输入：
 
@@ -246,7 +185,6 @@ Plan Approved，开始 execute。
 预期行为：
 
 - Agent 设置 `change_scope=cross`。
-- 加载两个项目的 codemap。
 - 检查两个项目是否有活跃 Spec 冲突。
 - Research 阶段识别跨项目依赖关系。
 - Plan 阶段：
@@ -255,7 +193,7 @@ Plan Approved，开始 execute。
 - Execute 阶段：先改 api-service，再改 web-console。
 - Review 阶段：校验接口契约一致性 + 记录 Touched Projects。
 
-### 8.5) 多项目完整对话流（端到端）
+### 5.5) 多项目完整对话流（端到端）
 
 用户输入（第一轮）：
 
@@ -271,7 +209,6 @@ Plan Approved，开始 execute。
 
 - 自动发现 3 个子项目（api-service、web-console、admin-portal）。
 - 请求用户确认 Project Registry。
-- 自动生成 3 个项目的 codemap。
 - 产出首版多项目 Spec。
 
 用户输入（第二轮）：
@@ -317,7 +254,7 @@ Plan Approved，execute all。
 - Touched Projects 完整性校验。
 - 输出三轴 `Review Matrix` + `Overall Verdict` + `Plan-Execution Diff`。
 
-### 8.6) 智能降级（多项目）
+### 5.6) 智能降级（多项目）
 
 用户输入：
 
@@ -333,9 +270,9 @@ sdd_bootstrap: mode=multi_project, task=修复登录bug, goal=修复登录页报
 
 ---
 
-## 9) Debug 模式：日志驱动排查与功能验证
+## 6) Debug 模式：日志驱动排查与功能验证
 
-### 9.1) 排查模式（指定日志 + 问题描述）
+### 6.1) 排查模式（指定日志 + 问题描述）
 
 用户输入：
 
@@ -346,7 +283,7 @@ DEBUG: log_path=./logs/app-2026-02-27.log, issue=审批通过后目标用户未�
 预期行为：
 
 - Agent 读取日志文件，提取审批回调相关的调用链和异常信息。
-- 加载关联的 Spec 和 CodeMap，理解“审批通过 → 自动授权”的预期链路。
+- 加载关联的 Spec，并用 `read`/`grep` 理解「审批通过 → 自动授权」的实际代码链路。
 - 交叉比对日志证据 × Spec 预期 × 代码逻辑，输出根因分析报告：
   - **症状**：日志中审批回调已触发，但后续授权动作未执行。
   - **预期行为**：审批通过后应触发自动授权。
@@ -354,7 +291,7 @@ DEBUG: log_path=./logs/app-2026-02-27.log, issue=审批通过后目标用户未�
   - **建议修复**：检查配置、开关与目标范围是否正确生效。
 - 如需修复代码，提示用户进入 RIPER 流程或 FAST 通道。
 
-### 9.2) 验证模式（全链路日志 + Spec 比对）
+### 6.2) 验证模式（全链路日志 + Spec 比对）
 
 用户输入：
 
@@ -370,7 +307,7 @@ DEBUG: log_path=./logs/app-2026-02-27.log, issue=审批通过后目标用户未�
   - 每条验收标准 → 日志证据 → PASS / FAIL / INCONCLUSIVE。
 - 对 INCONCLUSIVE 项给出建议（如"建议增加耗时日志"）。
 
-### 9.3) 简化触发（只给日志路径）
+### 6.3) 简化触发（只给日志路径）
 
 用户输入：
 
@@ -381,12 +318,12 @@ DEBUG: log_path=./logs/app-2026-02-27.log, issue=审批通过后目标用户未�
 预期行为：
 
 - Agent 读取日志，自动提取错误和异常。
-- 结合 CodeMap 索引定位相关代码。
+- 结合当前代码定位相关逻辑。
 - 输出可能的问题点和建议。
 
 ---
 
-## 10) review_spec：执行前规格评审（建议性）
+## 7) review_spec：执行前规格评审（建议性）
 
 用户输入：
 
@@ -404,7 +341,7 @@ REVIEW SPEC: spec=mydocs/specs/2026-02-27_14-30_资源访问审批与时效控�
 
 ---
 
-## 11) review_execute：执行后三轴评审（推荐）
+## 8) review_execute：执行后三轴评审（推荐）
 
 用户输入：
 
@@ -423,31 +360,3 @@ REVIEW EXECUTE: spec=mydocs/specs/2026-02-27_14-30_资源访问审批与时效�
 - 回写 Spec 的 `§6 Review Verdict` 与 `§7 Plan-Execution Diff`。
 
 ---
-
-## 12) archive：中间产物归档沉淀（推荐在任务收口执行）
-
-用户输入（双视角）：
-
-```text
-ARCHIVE: targets=[mydocs/specs/2026-02-27_14-30_资源访问审批与时效控制.md,mydocs/codemap/2026-02-27_13-50_访问审批链路功能.md], kind=mixed, audience=both, mode=snapshot, topic=访问审批时效化
-```
-
-预期行为：
-
-- Agent 读取目标 spec/codemap，并先给出 Source Index。
-- 合并重复结论，冲突信息显式标注，不做静默覆盖。
-- 生成双文档：
-  - `mydocs/archive/YYYY-MM-DD_hh-mm_访问审批时效化_human.md`
-  - `mydocs/archive/YYYY-MM-DD_hh-mm_访问审批时效化_llm.md`
-- 两个文档都包含 `Trace to Sources`（结论 -> 来源文件/章节）。
-
-用户输入（主题归档）：
-
-```text
-主题归档: targets=./mydocs/specs/, kind=spec, audience=llm, mode=thematic, topic=审批域授权策略演进
-```
-
-预期行为：
-
-- 从多个 spec 提炼可复用约束、接口契约、代码触点与历史坑位。
-- 输出单个 LLM 归档文档，供后续模型任务直接引用。

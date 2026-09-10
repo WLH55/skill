@@ -13,7 +13,7 @@ skill: sdd-riper-one
 **前置条件**
 
 - spec 状态块 `Phase` 为 `plan`
-- spec 状态块 `Approval` 为 `Approved`（用户已表达明确肯定 + 继续意图）
+- spec 状态块 `Approval` 为 `Plan Approved`（用户已做出明确指向执行的批准；单独「继续」不算）
 
 **Steps**
 
@@ -22,6 +22,7 @@ skill: sdd-riper-one
 3. 按 checklist 逐项执行
 4. 每完成一项，更新 spec `§5 Execute Log`，勾选 checklist
 5. 更新状态块 `Phase: execute`
+6. 有实质偏差时：先追加 `§8 Change Log`，再向用户报告
 
 **Output**
 
@@ -30,6 +31,6 @@ skill: sdd-riper-one
 
 **Guardrails**
 
-- 如果 Approval 不是 Approved，STOP 并提示用户批准
-- 实现偏差时，先暂停说明，更新 Plan 后重新请求批准
+- 如果 Approval 不是 `Plan Approved`，STOP 并提示用户批准
+- 实现偏差时，先暂停说明，更新 Plan 与 `§8 Change Log` 后重新请求批准
 - 保持变更最小化和聚焦

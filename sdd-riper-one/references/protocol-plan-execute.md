@@ -7,13 +7,14 @@
 - 状态：`[LOCKED]`
 - 目标：创建可审查的蓝图。人类审查点。
 - 动作：
-  1. 更新 Spec → §4 Plan
+  1. 更新 Spec → `§4 Plan`
   2. 必须内容：
      - **File Changes**：精确文件路径 + 变更说明
      - **Signatures**：精确函数/类名、参数、返回类型
      - **Implementation Checklist**：原子化执行步骤
   3. 约束：不包含实际代码实现，只有规格说明。禁止模糊。
-- 下一步：用户批准 → 进入 EXECUTE
+- 完成后：更新状态块 `Phase: plan`、`Approval: None`，等待用户批准
+- 如果是在已批准后修改 Plan：必须追加 `§8 Change Log` 条目，并把 `Approval` 重置为 `None`（需重新批准）
 - 暂停点：触发 STOP-AND-WAIT
 
 ## REVIEW_SPEC（建议性预审）
@@ -27,7 +28,8 @@
      - Plan 可执行性（File Changes、Signatures、Checklist）
      - 风险/回滚覆盖度
      - 跨项目契约完整性（如有）
-  3. 持久化到 Spec §4.4 Spec Review Notes：
+     - **结构是否符合 `references/spec-template.md` 骨架**
+  3. 持久化到 Spec `§4.4 / §4.5 Spec Review Notes`：
      - Spec Review Matrix（PASS/FAIL/PARTIAL + 证据）
      - Readiness Verdict：GO/NO-GO（建议性）
      - Risks & Suggestions
@@ -42,16 +44,18 @@
 ## EXECUTE（构建者）
 
 - 状态：`[ACTIVE]`
+- 准入：状态块 `Approval: Plan Approved`。无此标记不得开始。
 - 执行策略：
   - **默认（逐步执行）**：实现一个 checklist 项 → 触发 STOP-AND-WAIT（最适合调试/关键路径）
-  - **Batch Override**：触发词 "全部"/"all"/"execute all"/"一次性完成" → 按顺序实现所有剩余 checklist 项
+  - **Batch Override**：触发词「全部」/「all」/「execute all」/「一次性完成」→ 按顺序实现所有剩余 checklist 项
     - 即使批量模式，每个逻辑文件完成后仍必须保存
     - 遇到逻辑冲突或缺失 spec 细节 → 立即停止
 - 动作：
-  1. 读取 Spec §4 Checklist
+  1. 读取 Spec `§4.3 Implementation Checklist`
   2. 执行实现（根据命令执行单项或全量）
   3. 验证代码与 Spec 签名匹配
-  4. Codemap Staleness Check：每次逻辑文件变更后，与 Spec §1.2 交叉比对
+  4. 回写 `§5 Execute Log`（含 Validation 外部证据）
+  5. Reverse Sync：发现现实与 spec 不符时，先改 spec 并追加 `§8 Change Log`，再改代码
 - 约束：零偏差。Plan 是契约。
 - 错误处理：bug 需要逻辑变更 → 停止 → 报告 → 返回 PLAN
 
@@ -62,6 +66,6 @@
 - 工作流（压缩）：
   1. 绕过 RESEARCH 和 PLAN
   2. 立即实现
-  3. 编码后必须静默更新 Spec 匹配新现实
+  3. 编码后必须静默更新 Spec 匹配新现实（状态块 `Phase: done`，并追加 `§8 Change Log` 条目）
 - 允许：UI 微调、配置、单文件逻辑、typo、日志
 - 升级：任务涉及 >2 个核心文件或架构 → 暂停，请求切换到 PLAN

@@ -27,7 +27,7 @@ skill: sdd-riper-one
    - 主要风险
    - 验证方式
    - Done Contract（什么算完成、由什么证明）
-3. **落盘 spec**：写入 `docs/specs/YYYY-MM-DD_HH-MM_<TaskName>.md`，包含顶部状态块
+3. **落盘 spec**：写入 `mydocs/specs/YYYY-MM-DD_hh-mm_<TaskName>.md`，包含顶部状态块
 4. **给 checkpoint**：
    - 当前理解
    - 核心目标
@@ -37,21 +37,25 @@ skill: sdd-riper-one
 5. **等待用户批准**
 6. **实现**：按 checkpoint 执行代码变更
 7. **回写验证**：
-   - 更新 spec Change Log
-   - 更新 Validation（外部证据优先）
+   - 更新 spec `§5 Execute Log` 与 Validation（外部证据优先）
+   - 追加 `§8 Change Log` 条目（改动 / 原因 / 影响 / 批准）
    - 更新状态块 `Phase: done`
 8. **复杂度升级**：如果执行中发现复杂度超出预期（架构改动、跨模块、需求模糊），立即暂停，建议升级到标准版的 `/sdd:bootstrap` 流程
 
 **状态块格式**
 
 ```markdown
-> **Phase**: <plan|execute|review|done> | **Updated**: YYYY-MM-DD HH:MM
+> **Phase**: <research|innovate|plan|execute|review|done>
+> **Approval**: <None|Plan Approved>
+> **Updated**: YYYY-MM-DD HH:mm
+> **Spec**: mydocs/specs/<file>.md
 > **Goal**: <核心目标>
-> **Done Contract**: <完成定义>
-> **Last**: <上次完成什么> | **Next**: <下一步>
+> **Scope**: <In-Scope 一句话>
+> **Last**: <上次完成什么>
+> **Next**: <下一步>
 ```
 
-使用标准 Phase 枚举（plan → execute → review → done），与标准版保持一致。
+使用标准 Phase 枚举（全小写），与标准版保持一致；8 个字段名与顺序固定。
 
 **Guardrails**
 

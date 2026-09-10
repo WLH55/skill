@@ -20,7 +20,8 @@ Execute 完成后执行结构化三轴审查。
    - **轴 3 - 代码自身质量**：正确性、鲁棒性、可维护性、测试、风险
 4. 输出 `§6 Review Verdict`：Review Matrix + Overall Verdict + Blocking Issues
 5. 输出 `§7 Plan-Execution Diff`：偏差与原因
-6. 更新状态块 `Phase: review`
+6. 更新状态块：审查中 `Phase: review`；PASS 后 `Phase: done`
+7. 审计 `§8 Change Log`：若代码存在未回写 spec 的实质变更，轴 2 判 FAIL
 
 **Output**
 
@@ -30,4 +31,4 @@ Execute 完成后执行结构化三轴审查。
 
 - 轴 1 或轴 2 任一 FAIL → Review FAIL，回到 Research/Plan
 - 轴 3 存在高风险问题 → Review FAIL，回到 Plan
-- Review PASS → 可执行 `/sdd:archive`
+- Review PASS → 任务闭环，状态块 `Phase: done`

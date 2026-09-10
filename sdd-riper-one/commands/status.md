@@ -12,7 +12,7 @@ skill: sdd-riper-one
 
 **Steps**
 
-1. 扫描 `docs/specs/` 目录下所有 `.md` 文件
+1. 扫描 `mydocs/specs/` 目录下所有 `.md` 文件
 2. 读取每个文件的顶部状态块（前 10 行即可）
 3. 输出状态汇总表：
 
@@ -21,9 +21,8 @@ skill: sdd-riper-one
 | ... | ... | ... | ... | ... | ... |
 
 4. 标注异常状态：
-   - Phase 为 execute 但无 Approval 的 spec
+   - Phase 为 execute 但 Approval 不是 `Plan Approved` 的 spec
    - 长时间未更新的 spec（> 7 天）
-   - Codemap 标记为 Stale 的 spec
 
 **Output**
 

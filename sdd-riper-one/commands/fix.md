@@ -6,6 +6,8 @@ skill: sdd-riper-one
 
 零 spec 快修通道。适用于纯机械性改动，跳过 spec 直接执行。
 
+> 例外声明：本命令是「No Spec, No Code」的唯一官方例外，且必须由用户**显式调用**才能进入。Agent 不得自行提议或默认使用。使用时需在聊天中声明 `Spec Waived: /sdd:fix`。
+
 本命令属于 `sdd-riper-one` 技能。未加载技能时请先执行 `/sdd-riper-one`。
 
 **Input**: `/sdd:fix <修改描述>`
@@ -28,6 +30,8 @@ skill: sdd-riper-one
 
 **Guardrails**
 
+- 仅限用户显式调用；Agent 不得自行进入
+- 使用时必须先声明 `Spec Waived: /sdd:fix`
 - 一旦发现复杂度超出预期，立即升级到 `/sdd:ff` 或 `/sdd:bootstrap`
 - 不适用于：架构改动、跨文件逻辑变更、需求不明确的修改
 - 每次只处理一个改动，不要批量

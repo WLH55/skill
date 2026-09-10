@@ -12,7 +12,7 @@ Plan 完成后、执行前的建议性预审。评估 Spec 质量和 Plan 可执
 
 **前置条件**
 
-- spec 状态块 `Phase` 为 `Plan`
+- spec 状态块 `Phase` 为 `plan`
 - spec `§4 Plan` 已填写
 
 **Steps**
@@ -23,6 +23,7 @@ Plan 完成后、执行前的建议性预审。评估 Spec 质量和 Plan 可执
    - **Plan 可执行性**：File Changes、Signatures、Checklist 是否足够明确
    - **风险与回滚覆盖度**：是否有回滚方案、风险是否已识别
    - **跨项目契约完整性**（如适用）：Contract Interfaces 是否完整
+   - **结构一致性**：状态块 8 字段与章节骨架是否符合 `references/spec-template.md`
 3. 输出 Spec Review Matrix：
 
 | 检查项 | 裁决 | 证据 |
@@ -31,11 +32,12 @@ Plan 完成后、执行前的建议性预审。评估 Spec 质量和 Plan 可执
 | Plan 可执行性 | PASS/FAIL/PARTIAL | ... |
 | 风险/回滚覆盖度 | PASS/FAIL/PARTIAL | ... |
 | 跨项目契约完整性 | PASS/FAIL/PARTIAL | ... |
+| 结构一致性（模板骨架） | PASS/FAIL/PARTIAL | ... |
 
 4. 输出 Readiness Verdict：`GO` / `NO-GO`（**仅作建议，不阻塞执行**）
 5. 输出 Risks & Suggestions
 6. 输出 Phase Reminders（属于后续阶段但当前缺失的内容）
-7. 持久化审查报告到 spec `§4.4 Spec Review Notes`
+7. 持久化审查报告到 spec `§4.4 Spec Review Notes`（多项目模式为 `§4.5`）
 
 **阶段感知规则**
 
@@ -49,5 +51,5 @@ Plan 完成后、执行前的建议性预审。评估 Spec 质量和 Plan 可执
 
 **Output**
 
-- 更新 spec `§4.4 Spec Review Notes`
+- 更新 spec `§4.4 Spec Review Notes`（多项目模式为 `§4.5`）
 - 聊天中输出 Review Matrix + Verdict + Suggestions
